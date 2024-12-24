@@ -1,8 +1,18 @@
+# Тестирование email-функционала проекта
+# Ключевые требования:
+# - Использование файлового бэкенда для писем
+# - Хранение писем в директории sent_emails/
+# - Исключение sent_emails/ из репозитория
+
 from django.conf import settings
 from django.core.mail.backends.locmem import EmailBackend
 
 
 def test_gitignore():
+    """
+    Проверяет корректность настройки .gitignore для работы
+    с тестовыми email-сообщениями без их включения в репозиторий.
+    """
     try:
         with open(settings.BASE_DIR / '..' / '.gitignore', 'r',
                   encoding='utf-8', errors='ignore') as fh:
@@ -20,6 +30,10 @@ def test_gitignore():
 
 
 def test_email_backend_settings():
+    """
+    Проверяет корректность настройки почтового бэкенда для 
+    локального сохранения писем при тестировании.
+    """
     assert hasattr(settings, 'EMAIL_BACKEND'), (
         'Убедитесь, что в настроек проекта задана настройка `EMAIL_BACKEND`.'
     )
