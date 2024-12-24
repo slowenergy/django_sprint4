@@ -1,34 +1,20 @@
 from django import forms
-from .models import Post, Comment, User
+
+from .models import Post, Comment
 
 
-class FormUserComment(forms.ModelForm):
-    """Форма редактирования пользователя."""
-
-    class Meta:
-        model = User
-        fields = (
-            'username', 'first_name', 'last_name', 'email'
-        )
-
-
-class FormComment(forms.ModelForm):
-    """Форма создания коментария."""
-
-    class Meta:
-        model = Comment
-        fields = (
-            'text',
-        )
-
-
-class PostCreationForm(forms.ModelForm):
-    """Форма создания поста."""
+class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        exclude = ('is_published', 'author')
+        fields = ('title', 'pub_date', 'category', 'location', 'text', 'image')
         widgets = {
-            # 'pub_date': forms.DateInput(attrs={'type': 'date'}),
-            'pub_date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'pub_date': forms.DateInput(attrs={'type': 'date'})
         }
+
+
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ('text',)
